@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Adaptive Parity Transmission</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <div class="badge">
+            DATA TRANSMISSION SIMULATOR
+        </div>
+
+        <h1>
+            Adaptive Parity
+            <span>Transmission</span>
+        </h1>
+
+        <p>
+            Adaptive error detection using parity,
+            simulated channel noise and retransmission.
+        </p>
+
+    </header>
+
+
+    <!-- PROCESS FLOW -->
+
+    <section class="flow-section">
+
+        <h2>Transmission Process</h2>
+
+        <div class="flow">
+
+            <div class="flow-box active">
+                <strong>01</strong>
+                <span>Input</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-box">
+                <strong>02</strong>
+                <span>Adaptive Parity</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-box">
+                <strong>03</strong>
+                <span>Noise</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-box">
+                <strong>04</strong>
+                <span>Error Detection</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-box">
+                <strong>05</strong>
+                <span>Accept / Retransmit</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INPUT -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <div>
+                <h2>1. Enter Binary Data</h2>
+
+                <p>
+                    Enter one or more binary packets.
+                </p>
+            </div>
+
+            <button id="addPacketBtn"
+                    class="secondary-btn">
+                + Add Packet
+            </button>
+
+        </div>
+
+
+        <div id="packetContainer">
+
+            <div class="packet-input">
+
+                <span class="packet-number">01</span>
+
+                <input
+                    type="text"
+                    class="binary-input"
+                    placeholder="Example: 10110010"
+                    maxlength="32"
+                >
+
+                <button class="remove-btn"
+                        onclick="removePacket(this)">
+                    ×
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NOISE -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>2. Channel Noise</h2>
+
+                <p>
+                    Noise simulates bits being changed during transmission.
+                </p>
+
+            </div>
+
+            <div class="noise-value">
+                <span id="noiseValue">10</span>%
+            </div>
+
+        </div>
+
+
+        <input
+            type="range"
+            id="noiseSlider"
+            min="0"
+            max="50"
+            value="10"
+            step="1"
+        >
+
+        <div class="range-labels">
+            <span>0% — No Noise</span>
+            <span>50% — High Noise</span>
+        </div>
+
+    </section>
+
+
+    <!-- RUN -->
+
+    <section class="run-section">
+
+        <button id="runBtn"
+                class="run-btn">
+
+            <span>▶</span>
+
+            Run Transmission
+
+        </button>
+
+        <p>
+            The complete process will run automatically.
+        </p>
+
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section id="resultsSection"
+             class="results-section hidden">
+
+        <div class="results-header">
+
+            <div>
+
+                <h2>Transmission Results</h2>
+
+                <p>
+                    Sender → Channel → Receiver
+                </p>
+
+            </div>
+
+            <div id="overallStatus"
+                 class="status-badge">
+            </div>
+
+        </div>
+
+
+        <div id="resultsContainer"></div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="statistics">
+
+            <h2>Transmission Summary</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <span>Total Packets</span>
+
+                    <strong id="totalPackets">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>Errors Detected</span>
+
+                    <strong id="errorPackets">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>Accepted</span>
+
+                    <strong id="acceptedPackets">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>Retransmissions</span>
+
+                    <strong id="retransmissions">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+
+</html>
